@@ -74,18 +74,18 @@ module IntervalTree
     def search_intervals(query : Interval(T)) : Array(Interval(T))
       intervals.select do |k|
         ( # k is entirely contained within the query
-          (k.begin >= query.begin) &&
-            (k.end <= query.end)
-        ) || ( # k's start overlaps with the query
-          (k.begin >= query.begin) &&
-            (k.begin < query.end)
-        ) || ( # k's end overlaps with the query
-          (k.end > query.begin) &&
-            (k.end <= query.end)
-        ) || ( # k is bigger than the query
-          (k.begin < query.begin) &&
-            (k.end > query.end)
-        )
+(k.begin >= query.begin) &&
+          (k.end <= query.end)
+          ) || ( # k's start overlaps with the query
+(k.begin >= query.begin) &&
+          (k.begin < query.end)
+          ) || ( # k's end overlaps with the query
+(k.end > query.begin) &&
+          (k.end <= query.end)
+          ) || ( # k is bigger than the query
+(k.begin < query.begin) &&
+          (k.end > query.end)
+          )
       end
     end
 
@@ -102,7 +102,7 @@ module IntervalTree
         "  " * indent + "(#{center.inspect}: #{ivals}",
         left.inspect(indent + 1),
         right.inspect(indent + 1),
-        "  "*indent+ ")"
+        "  "*indent + ")",
       ].join("\n")
     end
   end

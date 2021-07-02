@@ -16,23 +16,22 @@ module IntervalTree
 
     def initialize(
       ranges : Enumerable(Range(T, T)),
-      find_center)
-    initialize(
-      ranges: ranges.map { |r| Interval(T).from(r) },
-      find_center: find_center
+      find_center
     )
-
+      initialize(
+        ranges: ranges.map { |r| Interval(T).from(r) },
+        find_center: find_center
+      )
     end
 
     def initialize(
       ranges : Enumerable(Range(Int, Int)),
       find_center = Centering(T).integer
     )
-
-    initialize(
-      ranges: ranges.map { |r| Interval(T).from(r) },
-      find_center: find_center
-    )
+      initialize(
+        ranges: ranges.map { |r| Interval(T).from(r) },
+        find_center: find_center
+      )
     end
 
     def search(query : Interval(T)) : Array(Interval(T))
