@@ -38,12 +38,6 @@ TODO: Write development instructions here
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Related Resources
-- * [The original version written in Ruby](https://github.com/greensync/interval-tree)
-
-## Original Author
-- [MISHIMA, Hiroyuki](https://github.com/misshie) - creator of the ruby gem
-
 ## Contributors
 - [Chris Coetzee](https://github.com/chriscz) - creator and maintainer of Crystal version
 
@@ -55,6 +49,9 @@ TODO: Write development instructions here
 - [Brendan Weibrecht](https://github.com/ZimbiX)
 - [Chris Nankervis](https://github.com/chrisnankervis)
 - [Thomas van der Pol](https://github.com/tvanderpol).
+
+## Related Resources
+- [The original version written in Ruby](https://github.com/greensync/interval-tree)
 
 ## License
 The MIT/X11 license
