@@ -48,5 +48,4 @@ module IntervalTree
       end
     end
   end
-
 end

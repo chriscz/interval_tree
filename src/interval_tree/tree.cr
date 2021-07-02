@@ -54,27 +54,28 @@ module IntervalTree
     def divide_intervals(intervals)
       return Node::Null(T).new if intervals.empty?
 
-      x_center = @find_center.call(intervals.as(Enumerable(Interval(T))))
-      s_center = [] of Interval(T)
-      s_left = [] of Interval(T)
-      s_right = [] of Interval(T)
+      midpoint = @find_center.call(intervals.as(Enumerable(Interval(T))))
+
+      left = [] of Interval(T)
+      right = [] of Interval(T)
+      center = [] of Interval(T)
 
       intervals.each do |i|
         case
-        when i.end < x_center
-          s_left << i
-        when i.begin > x_center
-          s_right << i
+        when i.end < midpoint
+          left << i
+        when i.begin > midpoint
+          right << i
         else
-          s_center << i
+          center << i
         end
       end
 
       Node(T).new(
-        x_center,
-        s_center,
-        divide_intervals(s_left),
-        divide_intervals(s_right)
+        midpoint,
+        center,
+        divide_intervals(left),
+        divide_intervals(right)
       )
     end
 

@@ -1,6 +1,5 @@
 require "../spec_helper"
 
-
 def int_tree(*ranges : Range(Int32, Int32))
   IntervalTree::Tree(Int32).new(
     ranges
@@ -8,7 +7,7 @@ def int_tree(*ranges : Range(Int32, Int32))
 end
 
 def int_tree
-  IntervalTree::Tree(Int32).new(([] of Range(Int32, Int32)),)
+  IntervalTree::Tree(Int32).new(([] of Range(Int32, Int32)))
 end
 
 def inclusive_ranges_to_exclusive(*ranges : Range(Int, Int))

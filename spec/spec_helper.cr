@@ -31,4 +31,3 @@ def ieq(v)
     eq(IntervalTree::Interval.from(v))
   end
 end
-
