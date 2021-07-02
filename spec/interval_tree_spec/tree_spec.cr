@@ -170,7 +170,6 @@ describe IntervalTree::Tree do
 
   context "given [(1...3), (3...5)] " do
     ranges = {(1...3), (3...5)}
-    all_ranges = ranges.to_intervals.to_a
 
     tree = int_tree(*ranges)
 
@@ -178,6 +177,56 @@ describe IntervalTree::Tree do
       context "given (3...9)" do
         it "returns [(3...5)]" do
           tree.search((3...5)).should ieq([(3...5)])
+        end
+      end
+    end
+  end
+
+  context "given [(5...9)] " do
+    ranges = {(5...9)}
+
+    tree = int_tree(*ranges)
+
+    describe "#search" do
+      context "given (1...2)" do
+        it "returns []" do
+          tree.search((1...2)).should eq(EMPTY_INTERVALS)
+        end
+      end
+
+      context "given (1...5)" do
+        it "returns []" do
+          tree.search((1...5)).should eq(EMPTY_INTERVALS)
+        end
+      end
+
+      context "given (1...6)" do
+        it "returns [(5...9)]" do
+          tree.search((1...6)).should ieq([(5...9)])
+        end
+      end
+
+      context "given (6...8)" do
+        it "returns [(5...9)]" do
+          tree.search((6...8)).should ieq([(5...9)])
+        end
+      end
+
+      context "given (8...10)" do
+        it "returns [(5...9)]" do
+          tree.search((8...10)).should ieq([(5...9)])
+        end
+      end
+
+      context "given (9...10)" do
+        it "returns []" do
+          tree.search((9...10)).should eq(EMPTY_INTERVALS)
+        end
+      end
+
+      context "given (10...11)" do
+        it "returns []" do
+          tree.search((9...10)).should eq(EMPTY_INTERVALS)
         end
       end
     end
