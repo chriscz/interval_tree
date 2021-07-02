@@ -1,5 +1,11 @@
 require "../spec_helper"
 
+struct Range
+  def to_interval
+    IntervalTree::Interval.from_range(self)
+  end
+end
+
 LARGE_EXAMPLE = {
   10...14,
   2...20,
@@ -34,13 +40,13 @@ describe IntervalTree::Tree do
 
       context "given (1..2)" do
         it "returns []" do
-          tree.search((1..2).to_interval).should eq(EMPTY_INTERVALS)
+          tree.search((1..2)).should eq(EMPTY_INTERVALS)
         end
       end
 
       context "given (1...2)" do
         it "returns []" do
-          tree.search((1...2).to_interval).should eq(EMPTY_INTERVALS)
+          tree.search((1...2)).should eq(EMPTY_INTERVALS)
         end
       end
     end
@@ -133,7 +139,7 @@ describe IntervalTree::Tree do
 
       context "given (1...4)" do
         it "returns all intervals" do
-          tree.search((1...4).to_interval).should eq(all_intervals)
+          tree.search((1...4)).should eq(all_intervals)
         end
       end
     end
@@ -148,7 +154,7 @@ describe IntervalTree::Tree do
     describe "#search" do
       context "given (3...5)" do
         it "returns [(3...5), (4...8)]" do
-          tree.search((3...5).to_interval).should eq(
+          tree.search((3...5)).should eq(
             [(3...5), (4...8)].map(&.to_interval)
           )
         end
@@ -165,7 +171,7 @@ describe IntervalTree::Tree do
     describe "#search" do
       context "given (3...5)" do
         it "returns [(3...5), (3...9), (4...8)]" do
-          tree.search((3...5).to_interval).should eq(
+          tree.search((3...5)).should eq(
             [(3...5), (3...9), (4...8)].map(&.to_interval)
           )
         end
@@ -182,7 +188,7 @@ describe IntervalTree::Tree do
     describe "#search" do
       context "given (3...9)" do
         it "returns [(3...5)]" do
-          tree.search((3...5).to_interval).should eq(
+          tree.search((3...5)).should eq(
             [(3...5)].map(&.to_interval)
           )
         end

@@ -2,7 +2,7 @@ require "../spec_helper"
 
 def ranges_to_intervals(ranges)
   ranges.map do |r|
-    r.to_interval
+    IntervalTree::Interval.from_range(r)
   end
 end
 
@@ -19,21 +19,6 @@ def int_tree
     ([] of IntervalTree::Interval(Int32)),
     ->(a : Int32, b : Int32) { IntervalTree::Interval.new(a, b) },
     IntervalTree::INTEGER_CENTER
-  )
-end
-
-
-def test_tree
-  int_tree(
-      10...14,
-      2...20,
-      0...5,
-      0...8,
-      3...6,
-      15...20,
-      16...21,
-      17...25,
-      21...24,
   )
 end
 

@@ -1,10 +1,10 @@
-# TODO: Write documentation for `IntervalTree`
 module IntervalTree
   VERSION = "0.1.0"
 
   class Error < Exception
   end
 
+  # TODO test tree behaviour when using round half even
   INTEGER_CENTER = ->(intervals : Array(Interval(Int32))) {
     ((
       intervals.map(&.begin).min +
@@ -13,6 +13,10 @@ module IntervalTree
   }
 
   class Interval(T)
+    def self.from_range(v : Range(T, T))
+      new(v.begin, v.end, v.exclusive?)
+    end
+
     def initialize(@begin : T, @end : T, @exclusive : Bool = false)
     end
 
@@ -37,7 +41,6 @@ module IntervalTree
     end
 
     def overlaps_begin?(v : Interval(T))
-
     end
 
     def ==(other)
@@ -78,6 +81,10 @@ module IntervalTree
 
     def search(query : T) : Array(Interval(T))
       @root.search(query)
+    end
+
+    def search(query : Range(T, T))
+      search(Interval(T).from_range(query))
     end
 
     def center
