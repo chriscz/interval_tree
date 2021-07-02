@@ -41,15 +41,20 @@ TODO: Write development instructions here
 ## Related Resources
 - * [The original version written in Ruby](https://github.com/greensync/interval-tree)
 
+## Original Author
+- [MISHIMA, Hiroyuki](https://github.com/misshie) - creator of the ruby gem
+
 ## Contributors
-- [MISHIMA, Hiroyuki](https://github.com/misshie) - creator of the Ruby gem
+- [Chris Coetzee](https://github.com/chriscz) - creator and maintainer of Crystal version
+
+## Ruby Contributors
+- [MISHIMA, Hiroyuki](https://github.com/misshie) - creator of the ruby gem
 - [Simeon Simeonov](https://github.com/ssimeonov)
 - [Carlos Alonso](https://github.com/calonso)
 - [Sam Davies](https://github.com/samphilipd)
 - [Brendan Weibrecht](https://github.com/ZimbiX)
 - [Chris Nankervis](https://github.com/chrisnankervis)
 - [Thomas van der Pol](https://github.com/tvanderpol).
-- [Chris Coetzee](https://github.com/chriscz) - creator and maintainer of Crystal version
 
 ## License
 The MIT/X11 license
