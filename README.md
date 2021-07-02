@@ -21,14 +21,35 @@ The `unique` feature was dropped because its trivial to run a `uniq` on the retu
 
 ```crystal
 require "interval_tree"
+
+# Example using integers
+tree = IntervalTree::Tree(Int32).new([(1...3), (4...5)])
+tree.search((1..4)) # => [Interval.new(1, 3, exclusive = true), Interval.new(4, 5, true)] 
+
+# Providing custom center function
+now = Time.utc
+calculate_center = ->(intervals : Enumerable(IntervalTree::Interval(Time))) {
+    min = intervals.map(&.begin).min
+    min + (intervals.map(&.end).max - min) / 2
+  }
+
+tree = IntervalTree::Tree(Time).new(
+  [
+    (now...(now + 1.day)),
+    (now + 1.day)...(now + 2.days)
+  ],
+  calculate_center
+)
+
+tree.search(now) # => [Interval.new(now, now + 1.day, exclusive = true)]
 ```
 
-
-TODO: Write usage instructions here
+## Caveats
+The ranges used to construct the tree must be exclusive.
 
 ## Development
 
-TODO: Write development instructions here
+1. Run `make watch` to automatically run tests on file changes (requires `inotify-tools`)
 
 ## Contributing
 
