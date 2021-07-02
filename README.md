@@ -1,4 +1,4 @@
-# IntervalTree
+# IntervalTree ![Specs](https://github.com/chriscz/interval_tree/actions/workflows/ci.yml/badge.svg)
 
 An implementation of a centered interval tree.
 Most of the code and tests were translated from the interval-tree ruby project https://github.com/greensync/interval-tree.
