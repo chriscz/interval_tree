@@ -8,10 +8,7 @@ def int_tree(*ranges : Range(Int32, Int32))
 end
 
 def int_tree
-  IntervalTree::Tree(Int32).new(
-    ([] of IntervalTree::Interval(Int32)),
-    IntervalTree::INTEGER_CENTER
-  )
+  IntervalTree::Tree(Int32).new(([] of Range(Int32, Int32)),)
 end
 
 def inclusive_ranges_to_exclusive(*ranges : Range(Int, Int))
