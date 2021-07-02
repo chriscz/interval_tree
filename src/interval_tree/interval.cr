@@ -23,16 +23,6 @@ module IntervalTree
       v >= @begin && (exclusive? ? v < @end : v <= @end)
     end
 
-    def contains?(v : Interval(T))
-      v.begin >= @begin && v.end <= @end
-    end
-
-    def overlaps_begin?(v : Interval(T))
-    end
-
-    def overlaps_end?(v : Interval(T))
-    end
-
     def ==(other)
       # BROKEN IN CRYSTAL 1. To be fixed in 1.10
       # return false unless other.is_a?(self.class)
