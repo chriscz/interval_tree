@@ -33,5 +33,43 @@ describe IntervalTree::Interval do
         x.should_not eq(y)
       end
     end
+
+    describe "#overlap?" do
+      context "given (1...2) and (2..3)" do
+        it "should return false" do
+          (1...2).to_interval.overlap?((2..3)).should eq(false)
+        end
+      end
+
+      context "given (1..2) and (2..3)" do
+        it "should return false" do
+          (1..2).to_interval.overlap?((2..3)).should eq(true)
+        end
+      end
+
+      context "given (1..2) and (3..4)" do
+        it "should return false" do
+          (1..2).to_interval.overlap?((3..4)).should eq(false)
+        end
+      end
+
+      context "given (1..10) and (3..4)" do
+        it "should return true" do
+          (1..10).to_interval.overlap?((3..4)).should eq(true)
+        end
+      end
+
+      context "given (1...2) and (1...2)" do
+        it "should return true" do
+          (1...2).to_interval.overlap?((1...2)).should eq(true)
+        end
+      end
+
+      context "given (1..2) and (1..2)" do
+        it "should return true" do
+          (1..2).to_interval.overlap?((1..2)).should eq(true)
+        end
+      end
+    end
   end
 end

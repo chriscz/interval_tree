@@ -4,7 +4,16 @@ module IntervalTree
       new(v.begin, v.end, v.exclusive?)
     end
 
+    def self.from(v : T)
+      new(v, v, false)
+    end
+
+    def self.from(v : Interval(T))
+      v
+    end
+
     def initialize(@begin : T, @end : T, @exclusive : Bool = false)
+      raise Error.new("begin must be before end: #{@begin} < #{@end}") if @end < @begin
     end
 
     def begin
@@ -19,8 +28,24 @@ module IntervalTree
       @exclusive
     end
 
+    def inclusive?
+      !exclusive?
+    end
+
     def includes?(v : T)
       v >= @begin && (exclusive? ? v < @end : v <= @end)
+    end
+
+    def overlap?(v : Interval(T))
+      (@begin < v.end || v.inclusive? && @begin == v.end) && (@end > v.begin || inclusive? && @end == v.begin)
+    end
+
+    def overlap?(v : T)
+      includes?(v)
+    end
+
+    def overlap?(r : Range(T, T))
+      overlap?(self.class.from(r))
     end
 
     def ==(other)

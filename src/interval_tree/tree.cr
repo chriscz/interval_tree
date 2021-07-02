@@ -38,11 +38,7 @@ module IntervalTree
       @root.search(query)
     end
 
-    def search(query : T) : Array(Interval(T))
-      @root.search(query)
-    end
-
-    def search(query : Range(T, T))
+    def search(query)
       search(Interval(T).from(query))
     end
 

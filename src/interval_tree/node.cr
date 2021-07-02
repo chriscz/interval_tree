@@ -53,28 +53,8 @@ module IntervalTree
       result
     end
 
-    def search(query : T)
-      result = search_intervals(query)
-
-      if query < center
-        result += left.search(query)
-      end
-
-      if query > center
-        result += right.search(query)
-      end
-
-      result
-    end
-
-    def search_intervals(query : T)
-      intervals.select { |k| k.includes?(query) }
-    end
-
-    def search_intervals(query : Interval(T)) : Array(Interval(T))
-      intervals.select do |k|
-        query.end > k.begin && query.begin < k.end
-      end
+    def search_intervals(query : Interval(T) | T) : Array(Interval(T))
+      intervals.select { |k| k.overlap?(query) }
     end
 
     def ==(other)
