@@ -1,11 +1,5 @@
 require "../spec_helper"
 
-struct Range
-  def to_interval
-    IntervalTree::Interval.from_range(self)
-  end
-end
-
 LARGE_EXAMPLE = {
   10...14,
   2...20,
@@ -64,7 +58,7 @@ describe IntervalTree::Tree do
     describe "#search" do
       context "given 3" do
         it "returns [(1...5)]" do
-          tree.search(3).should eq([(1...5).to_interval])
+          tree.search(3).should ieq([(1...5)])
         end
       end
 
@@ -76,15 +70,15 @@ describe IntervalTree::Tree do
 
       context "given 1 (left corner case)" do
         it "returns [(1...5)]" do
-          tree.search(1).should eq([(1...5).to_interval])
+          tree.search(1).should ieq([(1...5)])
         end
       end
     end
   end
 
   context "given [(1...5), (2...6)]" do
-    intervals = {(1...5), (2...6)}
-    tree = int_tree(*intervals)
+    ranges = {(1...5), (2...6)}
+    tree = int_tree(*ranges)
     describe "#center" do
       it "returns 4" do
         tree.center.should eq(4)
@@ -94,7 +88,7 @@ describe IntervalTree::Tree do
     describe "#search" do
       context "given 3" do
         it "returns all intervals" do
-          tree.search(3).should eq(intervals.map(&.to_interval).to_a)
+          tree.search(3).should ieq(ranges)
         end
       end
     end
@@ -125,72 +119,65 @@ describe IntervalTree::Tree do
   end
 
   context "given [(0...8), (1...5), (2...6)]" do
-    intervals = {(0...8), (1...5), (2...6)}
-    all_intervals = intervals.map(&.to_interval).to_a
+    ranges = {(0...8), (1...5), (2...6)}
 
-    tree = int_tree(*intervals)
+    tree = int_tree(*ranges)
 
     describe "#search" do
       context "given 3" do
         it "returns all intervals" do
-          tree.search(3).should eq(all_intervals)
+          tree.search(3).should ieq(ranges)
         end
       end
 
       context "given (1...4)" do
         it "returns all intervals" do
-          tree.search((1...4)).should eq(all_intervals)
+          tree.search((1...4)).should ieq(ranges)
         end
       end
     end
   end
 
   context "given [(1...3), (3...5), (4...8)] " do
-    intervals = {(1...3), (3...5), (4...8)}
-    all_intervals = intervals.map(&.to_interval).to_a
+    ranges = {(1...3), (3...5), (4...8)}
+    all_intervals = ranges.to_intervals.to_a
 
-    tree = int_tree(*intervals)
+    tree = int_tree(*ranges)
 
     describe "#search" do
       context "given (3...5)" do
         it "returns [(3...5), (4...8)]" do
-          tree.search((3...5)).should eq(
-            [(3...5), (4...8)].map(&.to_interval)
-          )
+          tree.search((3...5)).should ieq([(3...5), (4...8)])
         end
       end
     end
   end
 
   context "given [(1...3), (3...5), (3...9), (4...8)] " do
-    intervals = {(1...3), (3...5), (3...9), (4...8)}
-    all_intervals = intervals.map(&.to_interval).to_a
+    ranges = {(1...3), (3...5), (3...9), (4...8)}
+    all_intervals = ranges.to_intervals.to_a
 
-    tree = int_tree(*intervals)
+    tree = int_tree(*ranges)
 
     describe "#search" do
       context "given (3...5)" do
         it "returns [(3...5), (3...9), (4...8)]" do
-          tree.search((3...5)).should eq(
-            [(3...5), (3...9), (4...8)].map(&.to_interval)
-          )
+          tree.search((3...5)).should ieq([(3...5), (3...9), (4...8)])
         end
       end
     end
   end
 
   context "given [(1...3), (3...5)] " do
-    intervals = {(1...3), (3...5)}
-    all_intervals = intervals.map(&.to_interval).to_a
+    ranges = {(1...3), (3...5)}
+    all_ranges = ranges.to_intervals.to_a
 
-    tree = int_tree(*intervals)
+    tree = int_tree(*ranges)
 
     describe "#search" do
       context "given (3...9)" do
         it "returns [(3...5)]" do
-          tree.search((3...5)).should eq(
-            [(3...5)].map(&.to_interval)
-          )
+          tree.search((3...5)).should ieq([(3...5)])
         end
       end
     end
@@ -202,12 +189,12 @@ describe IntervalTree::Tree do
     describe "#search" do
       context "given (-5...3)" do
         it "returns [(2...20), (0...5), (0...8)]" do
-          tree.search((-5...3).to_interval).should eq(
+          tree.search((-5...3).to_interval).should ieq(
             [
               2...20,
               0...5,
               0...8,
-            ].map(&.to_interval)
+            ]
           )
         end
       end
@@ -216,23 +203,23 @@ describe IntervalTree::Tree do
     describe "dividing intervals" do
       left_node = IntervalTree::Node(Int32).new(
         4,
-        [0...5, 0...8, 3...6].map(&.to_interval),
+        [0...5, 0...8, 3...6].to_intervals,
       )
 
       right_right_node = IntervalTree::Node.new(
         23,
-        [21...24].map(&.to_interval)
+        [21...24].to_intervals
       )
 
       right_node = IntervalTree::Node(Int32).new(
         20,
-        [15...20, 16...21, 17...25].map(&.to_interval),
+        [15...20, 16...21, 17...25].to_intervals,
         right: right_right_node,
       )
 
       root_node = IntervalTree::Node(Int32).new(
         13,
-        [10...14, 2...20].map(&.to_interval),
+        [10...14, 2...20].to_intervals,
         left_node,
         right_node
       )

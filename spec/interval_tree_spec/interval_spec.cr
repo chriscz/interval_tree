@@ -1,16 +1,16 @@
 require "../spec_helper"
 
 describe IntervalTree::Interval do
-  describe ".from_range" do
+  describe ".from" do
     context "given (1..2)" do
       it "returns the closed Interval(1, 2)" do
-        IntervalTree::Interval(Int32).from_range((1..2)).should eq(IntervalTree::Interval(Int32).new(1, 2, false))
+        IntervalTree::Interval(Int32).from((1..2)).should eq(IntervalTree::Interval(Int32).new(1, 2, false))
       end
     end
 
     context "given (1...2)" do
       it "returns the open Interval(1, 2)" do
-        IntervalTree::Interval(Int32).from_range((1...2)).should eq(IntervalTree::Interval(Int32).new(1, 2, true))
+        IntervalTree::Interval(Int32).from((1...2)).should eq(IntervalTree::Interval(Int32).new(1, 2, true))
       end
     end
   end

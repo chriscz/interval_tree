@@ -13,7 +13,7 @@ module IntervalTree
   }
 
   class Interval(T)
-    def self.from_range(v : Range(T, T))
+    def self.from(v : Range(T, T))
       new(v.begin, v.end, v.exclusive?)
     end
 
@@ -68,11 +68,21 @@ module IntervalTree
 
     def initialize(
       ranges : Enumerable(Interval(T)),
-      interval_factory : (T, T) -> Interval(T),
       @find_center : Array(Interval(T)) -> T
     )
       @ranges = require_exclusive(ranges)
       @root = divide_intervals(@ranges)
+    end
+
+    def initialize(
+      ranges : Enumerable(Range(T, T)),
+      find_center = INTEGER_CENTER
+    )
+
+    initialize(
+      ranges: ranges.map { |r| Interval(T).from(r) },
+      find_center: find_center
+    )
     end
 
     def search(query : Interval(T)) : Array(Interval(T))
@@ -84,7 +94,7 @@ module IntervalTree
     end
 
     def search(query : Range(T, T))
-      search(Interval(T).from_range(query))
+      search(Interval(T).from(query))
     end
 
     def center
