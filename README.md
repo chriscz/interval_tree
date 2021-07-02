@@ -1,6 +1,9 @@
 # IntervalTree
 
-An implementation of a centered interval tree. Most of the code and tests were translated from the interval-tree ruby project https://github.com/greensync/interval-tree
+An implementation of a centered interval tree.
+Most of the code and tests were translated from the interval-tree ruby project https://github.com/greensync/interval-tree.
+Tests were restructured by the data (context) which they work on.
+The `unique` feature was dropped because its trivial to run a `uniq` on the returned intervals, however it might be added back in the future.
 
 ## Installation
 
