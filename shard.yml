@@ -1,0 +1,9 @@
+name: interval_tree
+version: 0.1.0
+
+authors:
+  - Chris Coetzee <chriscz93@gmail.com>
+
+crystal: 1.0.0
+
+license: MIT
